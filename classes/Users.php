@@ -3,14 +3,10 @@
 include 'lib/Database.php';
 include_once 'lib/Session.php';
 
-
 class Users
 {
-
-
   // Db Property
   private $db;
-
   // Db __construct Method
   public function __construct()
   {
@@ -25,8 +21,6 @@ class Users
     return date('Y-m-d H:i:s', $strtime);
   }
 
-
-
   // Check Exist Email Address Method
   public function checkExistEmail($email)
   {
@@ -40,8 +34,6 @@ class Users
       return false;
     }
   }
-
-
 
   // User Registration Method
   public function userRegistration($data)
@@ -196,8 +188,6 @@ class Users
     }
   }
 
-
-
   // Select All User Method
   public function selectAllUserData()
   {
@@ -206,7 +196,6 @@ class Users
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
   }
-
 
   // User login Autho Method
   public function userLoginAutho($email, $password)
@@ -230,16 +219,11 @@ class Users
     return $stmt->fetch(PDO::FETCH_OBJ);
   }
 
-
-
-
   // User Login Authotication Method
   public function userLoginAuthotication($data)
   {
     $email = $data['email'];
     $password = $data['password'];
-
-
     $checkEmail = $this->checkExistEmail($email);
 
     if ($email == "" || $password == "") {
@@ -290,8 +274,6 @@ class Users
     }
   }
 
-
-
   // Get Single User Information By Id Method
   public function getUserInfoById($userid)
   {
@@ -307,8 +289,6 @@ class Users
     }
   }
 
-
-
   //
   //   Get Single User Information By Id Method
   public function updateUserByIdInfo($userid, $data)
@@ -318,8 +298,6 @@ class Users
     $email = $data['email'];
     $mobile = $data['mobile'];
     $roleid = $data['roleid'];
-
-
 
     if ($name == "" || $username == "" || $email == "" || $mobile == "") {
       $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
@@ -373,9 +351,6 @@ class Users
     }
   }
 
-
-
-
   // Delete User by Id Method
   public function deleteUserById($remove)
   {
@@ -423,7 +398,6 @@ class Users
     }
   }
 
-
   // User Deactivated By Admin
   public function userActiveByAdmin($active)
   {
@@ -448,9 +422,6 @@ class Users
     }
   }
 
-
-
-
   // Check Old password method
   public function CheckOldPassword($userid, $old_pass)
   {
@@ -466,8 +437,6 @@ class Users
       return false;
     }
   }
-
-
 
   // Change User pass By Id
   public  function changePasswordBysingelUserId($userid, $data)

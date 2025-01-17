@@ -1,11 +1,8 @@
 <?php
 
 // Class Name: Session
-
 class Session
 {
-
-
   // Session Start Method
   public static function init()
   {
@@ -21,14 +18,11 @@ class Session
     }
   }
 
-
   // Session Set Method
   public static function set($key, $val)
   {
     $_SESSION[$key] = $val;
   }
-
-
 
   // Session Get Method
   public static function get($key)
@@ -48,7 +42,6 @@ class Session
     echo "<script>window.location='login.php';</script>";
   }
 
-
   // Check Session Method
   public static function CheckSession()
   {
@@ -57,7 +50,6 @@ class Session
       echo "<script>window.location='login.php';</script>";
     }
   }
-
 
   // Check Login Method
   public static function CheckLogin()
