@@ -2,7 +2,9 @@
 error_reporting(32767);
 ini_set('display_errors', 1);
 
-include 'inc/header.php';
+$basepath = realpath(__DIR__ . '/..');
+
+include_once $basepath . "/inc/header.php";
 
 Session::CheckSession();
 
@@ -180,21 +182,9 @@ if (isset($activeId)) {
       </tbody>
 
     </table>
-
-
-
-
-
-
-
-
-
   </div>
 </div>
 
-
-
 <?php
-include 'inc/footer.php';
-
+include $basepath . '/inc/footer.php';
 ?>

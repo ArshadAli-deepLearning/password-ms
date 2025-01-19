@@ -1,6 +1,10 @@
 <?php
+error_reporting(32767);
+ini_set('display_errors', 1);
 
-include "config/config.php";
+$basepath = realpath(__DIR__ . '/..');
+
+include $basepath . "/config/config.php";
 
 // Class Databse
 class  Database

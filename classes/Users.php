@@ -1,7 +1,11 @@
 <?php
+error_reporting(32767);
+ini_set('display_errors', 1);
 
-include 'lib/Database.php';
-include_once 'lib/Session.php';
+$basepath = realpath(__DIR__ . '/..');
+
+include $basepath . '/lib/Database.php';
+include_once $basepath . '/lib/Session.php';
 
 class Users
 {

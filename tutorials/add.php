@@ -2,8 +2,9 @@
 error_reporting(32767);
 ini_set('display_errors', 1);
 
-include_once '../config/config.php';
-include BASE_PATH . 'inc/header.php';
+$basepath = realpath(__DIR__ . '/..');
+
+include_once $basepath . "/inc/header.php";
 
 Session::CheckSession();
 $sId =  Session::get('roleid');
@@ -19,17 +20,12 @@ if ($sId == '1') {
   }
 ?>
 
-
   <div class="card ">
     <div class="card-header">
       <h3 class='text-center'>Add New User</h3>
     </div>
     <div class="cad-body">
-
-
-
       <div style="width:600px; margin:0px auto">
-
         <form class="" action="" method="post">
           <div class="form-group pt-3">
             <label for="name">Your name</label>
@@ -65,23 +61,16 @@ if ($sId == '1') {
           <div class="form-group">
             <button type="submit" name="addUser" class="btn btn-success">Register</button>
           </div>
-
-
         </form>
       </div>
-
-
     </div>
   </div>
-
 <?php
 } else {
-
   header('Location:index.php');
 }
 ?>
 
 <?php
-include 'inc/footer.php';
-
+include $basepath . '/inc/footer.php';
 ?>
