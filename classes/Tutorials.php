@@ -238,12 +238,12 @@ class Tutorials
     }
   }
 
-  // Get Single User Information By Id Method
-  public function getUserInfoById($userid)
+  // Get Single Tutorial By Id Method
+  public function getTutorialById($id)
   {
-    $sql = "SELECT * FROM tbl_users WHERE id = :id LIMIT 1";
+    $sql = "SELECT * FROM tbl_tutorials WHERE id = :id LIMIT 1";
     $stmt = $this->db->pdo->prepare($sql);
-    $stmt->bindValue(':id', $userid);
+    $stmt->bindValue(':id', $id);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_OBJ);
     if ($result) {
@@ -255,77 +255,59 @@ class Tutorials
 
   //
   //   Get Single User Information By Id Method
-  public function updateUserByIdInfo($userid, $data)
-  {
-    $name = $data['name'];
-    $username = $data['username'];
-    $email = $data['email'];
-    $mobile = $data['mobile'];
-    $roleid = $data['roleid'];
+  public function updateTutorialByAdmin($id, $data)
+{
+    $title = trim($data['title']);
+    $detail = trim($data['detail']);
+    $link = trim($data['link']);
 
-    if ($name == "" || $username == "" || $email == "" || $mobile == "") {
-      $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Error !</strong> Input Fields must not be Empty !</div>';
-      return $msg;
-    } elseif (strlen($username) < 3) {
-      $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Error !</strong> Username is too short, at least 3 Characters !</div>';
-      return $msg;
-    } elseif (filter_var($mobile, FILTER_SANITIZE_NUMBER_INT) == FALSE) {
-      $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Error !</strong> Enter only Number Characters for Mobile number field !</div>';
-      return $msg;
-    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL === FALSE)) {
-      $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Error !</strong> Invalid email address !</div>';
-      return $msg;
-    } else {
-
-      $sql = "UPDATE tbl_users SET
-          name = :name,
-          username = :username,
-          email = :email,
-          mobile = :mobile,
-          roleid = :roleid
-          WHERE id = :id";
-      $stmt = $this->db->pdo->prepare($sql);
-      $stmt->bindValue(':name', $name);
-      $stmt->bindValue(':username', $username);
-      $stmt->bindValue(':email', $email);
-      $stmt->bindValue(':mobile', $mobile);
-      $stmt->bindValue(':roleid', $roleid);
-      $stmt->bindValue(':id', $userid);
-      $result =   $stmt->execute();
-
-      if ($result) {
-        echo "<script>location.href='index.php';</script>";
-        Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <strong>Success !</strong> Wow, Your Information updated Successfully !</div>');
-      } else {
-        echo "<script>location.href='index.php';</script>";
-        Session::set('msg', '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Error !</strong> Data not inserted !</div>');
-      }
+    if ($title === "" || $detail === "" || $link === "") {
+        return '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Error!</strong> Input fields must not be empty!
+                </div>';
     }
-  }
 
-  // Delete User by Id Method
-  public function deleteUserById($remove)
+    $sql = "UPDATE tbl_tutorials 
+            SET title = :title, 
+                detail = :detail, 
+                link = :link 
+            WHERE id = :id";
+
+    $stmt = $this->db->pdo->prepare($sql);
+    $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+    $stmt->bindValue(':detail', $detail, PDO::PARAM_STR);
+    $stmt->bindValue(':link', $link, PDO::PARAM_STR);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong> Tutorial updated successfully!
+                             </div>');
+        header("Location: index.php");
+        exit();
+    } else {
+        Session::set('msg', '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Error!</strong> Unable to update tutorial!
+                             </div>');
+        header("Location: index.php");
+        exit();
+    }
+}
+
+  // Delete Tutorial by Id Method
+  public function deleteTutorialById($remove)
   {
-    $sql = "DELETE FROM tbl_users WHERE id = :id ";
+    $sql = "DELETE FROM tbl_tutorials WHERE id = :id ";
     $stmt = $this->db->pdo->prepare($sql);
     $stmt->bindValue(':id', $remove);
     $result = $stmt->execute();
     if ($result) {
       $msg = '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Success !</strong> User account Deleted Successfully !</div>';
+    <strong>Success !</strong> Tutorial Deleted Successfully !</div>';
       return $msg;
     } else {
       $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">

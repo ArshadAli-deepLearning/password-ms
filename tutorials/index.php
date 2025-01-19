@@ -29,29 +29,12 @@ $tutorials = new Tutorials();
 
 if (isset($_GET['remove'])) {
   $remove = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['remove']);
-  $removeUser = $users->deleteUserById($remove);
+  $removeTutorial = $tutorials->deleteTutorialById($remove);
 }
 
-if (isset($removeUser)) {
-  echo $removeUser;
+if (isset($removeTutorial)) {
+  echo $removeTutorial;
 }
-if (isset($_GET['deactive'])) {
-  $deactive = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['deactive']);
-  $deactiveId = $users->userDeactiveByAdmin($deactive);
-}
-
-if (isset($deactiveId)) {
-  echo $deactiveId;
-}
-if (isset($_GET['active'])) {
-  $active = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['active']);
-  $activeId = $users->userActiveByAdmin($active);
-}
-
-if (isset($activeId)) {
-  echo $activeId;
-}
-
 
 ?>
 <div class="card ">
@@ -106,36 +89,36 @@ if (isset($activeId)) {
               <td>
                 <?php if (Session::get("roleid") == '1') { ?>
                   <a class="btn btn-success btn-sm
-                            " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
-                  <a onclick="return confirm('Are you sure To Delete ?')" class="btn btn-danger
+                            " href="view.php?id=<?php echo $value->id; ?>">View</a>
+                  <a class="btn btn-info btn-sm " href="add.php?id=<?php echo $value->id; ?>">Edit</a>
+                  <a onclick="return confirm('Are you sure To Delete <?php echo $value->title; ?>?')" class="btn btn-danger
                     <?php if (Session::get("id") == $value->id) {
                       echo "disabled";
                     } ?>
                              btn-sm " href="?remove=<?php echo $value->id; ?>">Remove</a>
                 <?php  } elseif (Session::get("id") == $value->id  && Session::get("roleid") == '2') { ?>
-                  <a class="btn btn-success btn-sm " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
+                  <a class="btn btn-success btn-sm " href="view.php?id=<?php echo $value->id; ?>">View</a>
+                  <a class="btn btn-info btn-sm " href="add.php?id=<?php echo $value->id; ?>">Edit</a>
                 <?php  } elseif (Session::get("roleid") == '2') { ?>
                   <a class="btn btn-success btn-sm
                           <?php if ($value->roleid == '1') {
                             echo "disabled";
                           } ?>
-                          " href="profile.php?id=<?php echo $value->id; ?>">View</a>
+                          " href="view.php?id=<?php echo $value->id; ?>">View</a>
                   <a class="btn btn-info btn-sm
                           <?php if ($value->roleid == '1') {
                             echo "disabled";
                           } ?>
-                          " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
+                          " href="add.php?id=<?php echo $value->id; ?>">Edit</a>
                 <?php } elseif (Session::get("id") == $value->id  && Session::get("roleid") == '3') { ?>
-                  <a class="btn btn-success btn-sm " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
+                  <a class="btn btn-success btn-sm " href="view.php?id=<?php echo $value->id; ?>">View</a>
+                  <a class="btn btn-info btn-sm " href="add.php?id=<?php echo $value->id; ?>">Edit</a>
                 <?php } else { ?>
                   <a class="btn btn-success btn-sm
                           <?php if ($value->roleid == '1') {
                             echo "disabled";
                           } ?>
-                          " href="profile.php?id=<?php echo $value->id; ?>">View</a>
+                          " href="view.php?id=<?php echo $value->id; ?>">View</a>
 
                 <?php } ?>
 
