@@ -54,6 +54,26 @@ $users = new Users();
               ?>">
                 <a class="nav-link" href="addUser.php"><i class="fas fa-user-plus mr-2"></i>Add user </span></a>
               </li>
+              <li class="nav-item
+              <?php
+              $path = $_SERVER['SCRIPT_FILENAME'];
+              $current = basename($path, '.php');
+              if ($current == 'tutorials/index') {
+                echo " active ";
+              }
+              ?>">
+                <a class="nav-link" href="tutorials/index.php"><i class="fas fa-user-plus mr-2"></i>List Tutorial </span></a>
+              </li>
+              <li class="nav-item
+              <?php
+              $path = $_SERVER['SCRIPT_FILENAME'];
+              $current = basename($path, '.php');
+              if ($current == 'tutorials/add') {
+                echo " active ";
+              }
+              ?>">
+                <a class="nav-link" href="tutorials/add.php"><i class="fas fa-user-plus mr-2"></i>Add Tutorial </span></a>
+              </li>
             <?php  } ?>
             <li class="nav-item
             <?php

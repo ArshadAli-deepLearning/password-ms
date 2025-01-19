@@ -2,9 +2,10 @@
 error_reporting(32767);
 ini_set('display_errors', 1);
 
-include 'inc/header.php';
-Session::CheckSession();
+include_once '../config/config.php';
+include BASE_PATH . 'inc/header.php';
 
+Session::CheckSession();
 $sId =  Session::get('roleid');
 
 if ($sId == '1') {

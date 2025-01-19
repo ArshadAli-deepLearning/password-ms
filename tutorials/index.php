@@ -2,7 +2,7 @@
 error_reporting(32767);
 ini_set('display_errors', 1);
 
-include './inc/header.php';
+include 'inc/header.php';
 
 Session::CheckSession();
 
