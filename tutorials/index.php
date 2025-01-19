@@ -18,6 +18,12 @@ if (isset($msg)) {
 }
 Session::set("msg", NULL);
 Session::set("logMsg", NULL);
+
+spl_autoload_register(function ($classes) use ($basepath) {
+  include $basepath . "/classes/" . $classes . ".php";
+});
+
+$tutorials = new Tutorials();
 ?>
 <?php
 
@@ -50,7 +56,7 @@ if (isset($activeId)) {
 ?>
 <div class="card ">
   <div class="card-header">
-    <h3><i class="fas fa-users mr-2"></i>User list <span class="float-right">Welcome! <strong>
+    <h3><i class="fas fa-folder mr-2"></i>Tutorial list <span class="float-right">Welcome! <strong>
           <span class="badge badge-lg badge-secondary text-white">
             <?php
             $username = Session::get('username');
@@ -67,25 +73,20 @@ if (isset($activeId)) {
       <thead>
         <tr>
           <th class="text-center">SL</th>
-          <th class="text-center">Name</th>
-          <th class="text-center">Username</th>
-          <th class="text-center">Email address</th>
-          <th class="text-center">Mobile</th>
-          <th class="text-center">Status</th>
+          <th class="text-center">Title</th>
+          <th class="text-center">Detail</th>
+          <th class="text-center">Link</th>
           <th class="text-center">Created</th>
           <th width='25%' class="text-center">Action</th>
         </tr>
       </thead>
       <tbody>
         <?php
-
-        $allUser = $users->selectAllUserData();
-
-        if ($allUser) {
+        $allTutorials = $tutorials->selectAllTutorialsData();
+        if ($allTutorials) {
           $i = 0;
-          foreach ($allUser as  $value) {
+          foreach ($allTutorials as  $value) {
             $i++;
-
         ?>
 
             <tr class="text-center"
@@ -94,28 +95,14 @@ if (isset($activeId)) {
               } ?>>
 
               <td><?php echo $i; ?></td>
-              <td><?php echo $value->name; ?></td>
-              <td><?php echo $value->username; ?> <br>
-                <?php if ($value->roleid  == '1') {
-                  echo "<span class='badge badge-lg badge-info text-white'>Admin</span>";
-                } elseif ($value->roleid == '2') {
-                  echo "<span class='badge badge-lg badge-dark text-white'>Editor</span>";
-                } elseif ($value->roleid == '3') {
-                  echo "<span class='badge badge-lg badge-dark text-white'>User Only</span>";
-                } ?></td>
-              <td><?php echo $value->email; ?></td>
-
-              <td><span class="badge badge-lg badge-secondary text-white"><?php echo $value->mobile; ?></span></td>
+              <td><?php echo $value->title; ?></td>
+              <td><?php echo substr($value->detail, 0, 300); ?> ...</td>
+              <td><?php echo $value->link; ?></td>
               <td>
-                <?php if ($value->isActive == '0') { ?>
-                  <span class="badge badge-lg badge-info text-white">Active</span>
-                <?php } else { ?>
-                  <span class="badge badge-lg badge-danger text-white">Deactive</span>
-                <?php } ?>
-
+                <span class="badge badge-lg badge-secondary text-white">
+                  <?php echo $tutorials->formatDate($value->created_at); ?>
+                </span>
               </td>
-              <td><span class="badge badge-lg badge-secondary text-white"><?php echo $users->formatDate($value->created_at);  ?></span></td>
-
               <td>
                 <?php if (Session::get("roleid") == '1') { ?>
                   <a class="btn btn-success btn-sm
@@ -126,24 +113,6 @@ if (isset($activeId)) {
                       echo "disabled";
                     } ?>
                              btn-sm " href="?remove=<?php echo $value->id; ?>">Remove</a>
-
-                  <?php if ($value->isActive == '0') {  ?>
-                    <a onclick="return confirm('Are you sure To Deactive ?')" class="btn btn-warning
-                       <?php if (Session::get("id") == $value->id) {
-                          echo "disabled";
-                        } ?>
-                                btn-sm " href="?deactive=<?php echo $value->id; ?>">Disable</a>
-                  <?php } elseif ($value->isActive == '1') { ?>
-                    <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
-                       <?php if (Session::get("id") == $value->id) {
-                          echo "disabled";
-                        } ?>
-                                btn-sm " href="?active=<?php echo $value->id; ?>">Active</a>
-                  <?php } ?>
-
-
-
-
                 <?php  } elseif (Session::get("id") == $value->id  && Session::get("roleid") == '2') { ?>
                   <a class="btn btn-success btn-sm " href="profile.php?id=<?php echo $value->id; ?>">View</a>
                   <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
@@ -175,7 +144,7 @@ if (isset($activeId)) {
           <?php }
         } else { ?>
           <tr class="text-center">
-            <td>No user availabe now !</td>
+            <td>No tutorial availabe now !</td>
           </tr>
         <?php } ?>
 

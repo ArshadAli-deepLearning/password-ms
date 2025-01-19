@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $basepath = realpath(__DIR__ . '/..');
 
-include $basepath . "/config/config.php";
+include_once $basepath . "/config/config.php";
 
 // Class Databse
 class  Database

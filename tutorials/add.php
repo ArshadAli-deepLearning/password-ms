@@ -6,60 +6,47 @@ $basepath = realpath(__DIR__ . '/..');
 
 include_once $basepath . "/inc/header.php";
 
+spl_autoload_register(function ($classes) use ($basepath) {
+  include $basepath . "/classes/" . $classes . ".php";
+});
+
+$tutorials = new Tutorials();
+
 Session::CheckSession();
 $sId =  Session::get('roleid');
 
 if ($sId == '1') {
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addUser'])) {
-    $userAdd = $users->addNewUserByAdmin($_POST);
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addTutorial'])) {
+    $tutorialAdd = $tutorials->addNewTutorialByAdmin($_POST);
   }
 
-  if (isset($userAdd)) {
-    echo $userAdd;
+  if (isset($tutorialAdd)) {
+    echo $tutorialAdd;
   }
 ?>
 
   <div class="card ">
     <div class="card-header">
-      <h3 class='text-center'>Add New User</h3>
+      <h3 class='text-center'>Add New Tutorial</h3>
     </div>
     <div class="cad-body">
       <div style="width:600px; margin:0px auto">
         <form class="" action="" method="post">
           <div class="form-group pt-3">
-            <label for="name">Your name</label>
-            <input type="text" name="name" class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="form-control">
           </div>
           <div class="form-group">
-            <label for="username">Your username</label>
-            <input type="text" name="username" class="form-control">
+            <label for="link">Link</label>
+            <input type="text" name="link" class="form-control">
           </div>
           <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" name="email" class="form-control">
+            <label for="detail">Detail</label>
+            <textarea type="text" name="detail" class="form-control" rows="10"></textarea>
           </div>
           <div class="form-group">
-            <label for="mobile">Mobile Number</label>
-            <input type="text" name="mobile" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" class="form-control">
-          </div>
-          <div class="form-group">
-            <div class="form-group">
-              <label for="sel1">Select user Role</label>
-              <select class="form-control" name="roleid" id="roleid">
-                <option value="1">Admin</option>
-                <option value="2">Editor</option>
-                <option value="3">User only</option>
-
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <button type="submit" name="addUser" class="btn btn-success">Register</button>
+            <button type="submit" name="addTutorial" class="btn btn-success">Save</button>
           </div>
         </form>
       </div>
@@ -67,7 +54,7 @@ if ($sId == '1') {
   </div>
 <?php
 } else {
-  header('Location:index.php');
+  header('Location:/password-ms/tutorials/index.php');
 }
 ?>
 

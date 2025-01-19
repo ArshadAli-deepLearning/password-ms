@@ -48,10 +48,10 @@ $users = new Users();
                 <a class="nav-link" href="<?php echo $domain;?>/addUser.php"><i class="fas fa-user-plus mr-2"></i>Add user</a>
               </li>
               <li class="nav-item <?php echo (basename($_SERVER['SCRIPT_FILENAME']) == 'index.php' && strpos($_SERVER['SCRIPT_FILENAME'], 'tutorials') !== false) ? ' active' : ''; ?>">
-                <a class="nav-link" href="<?php echo $domain;?>/tutorials/index.php"><i class="fas fa-user-plus mr-2"></i>List Tutorial</a>
+                <a class="nav-link" href="<?php echo $domain;?>/tutorials/index.php"><i class="fas fa-folder mr-2"></i>List Tutorial</a>
               </li>
               <li class="nav-item <?php echo (basename($_SERVER['SCRIPT_FILENAME']) == 'add.php' && strpos($_SERVER['SCRIPT_FILENAME'], 'tutorials') !== false) ? ' active' : ''; ?>">
-                <a class="nav-link" href="<?php echo $domain;?>/tutorials/add.php"><i class="fas fa-user-plus mr-2"></i>Add Tutorial</a>
+                <a class="nav-link" href="<?php echo $domain;?>/tutorials/add.php"><i class="fas fa-folder mr-2"></i>Add Tutorial</a>
               </li>
             <?php } ?>
             <li class="nav-item <?php echo (basename($_SERVER['SCRIPT_FILENAME']) == 'profile.php') ? ' active' : ''; ?>">
