@@ -62,8 +62,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="UserDropdown">
                         <li><a class="dropdown-item" href="user.html">User</a></li>
-                        <li><a class="dropdown-item" href="login.html">login</a></li>
-                        <li><a class="dropdown-item" href="register.html">regster</a></li>
+                        <li><a class="dropdown-item" href="login.php">login</a></li>
+                        <li><a class="dropdown-item" href="register.php">regster</a></li>
                     </ul>
                 </div>
             </ul>
