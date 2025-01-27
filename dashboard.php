@@ -5,7 +5,14 @@ ini_set('display_errors', 1);
 include './inc/header copy.php';
 
 Session::CheckSession();
+$sId =  Session::get('roleid');
+$userId = Session::get('id'); // Get the logged-in user's ID
 
+// Redirect if the user is not of roleid '3'
+if ($sId != '1') {
+  echo "<script>location.href='profile.php?id=$userId';</script>";
+  exit(); // Stop further execution after the redirect
+}
 // Retrieve the message from the session
 $msg = Session::get('msg');
 Session::set("msg", null); // Clear the message after retrieval
@@ -18,7 +25,7 @@ if (isset($_GET['remove'])) {
   $removeUser = $users->deleteUserById($remove);
   if (isset($removeUser)) {
     Session::set('msg', $removeUser);
-    echo "<script>location.href='dashbaord.php';</script>";
+    echo "<script>location.href='dashboard.php';</script>";
   }
 }
 
@@ -27,7 +34,7 @@ if (isset($_GET['deactive'])) {
   $deactiveId = $users->userDeactiveByAdmin($deactive);
   if (isset($deactiveId)) {
     Session::set('msg', $deactiveId);
-    echo "<script>location.href='dashbaord.php';</script>";
+    echo "<script>location.href='dashboard.php';</script>";
   }
 }
 
@@ -36,7 +43,7 @@ if (isset($_GET['active'])) {
   $activeId = $users->userActiveByAdmin($active);
   if (isset($activeId)) {
     Session::set('msg', $activeId);
-    echo "<script>location.href='dashbaord.php';</script>";
+    echo "<script>location.href='dashboard.php';</script>";
   }
 }
 ?>

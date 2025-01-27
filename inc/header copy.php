@@ -22,6 +22,10 @@ $users = new Users();
   <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo $domain;?>/assets/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo $domain;?>/assets/style.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -39,9 +43,6 @@ $users = new Users();
         <li class="nav-item mb-2">
           <a class="nav-link text-white" href="<?php echo $domain;?>/index.php"><i class="fas fa-home mr-2"></i>Home</a>
         </li>
-        <li class="nav-item mb-2">
-          <a class="nav-link text-white" href="<?php echo $domain;?>/dashboard.php"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
-        </li>
         <?php if (Session::get('id') == TRUE) { ?>
           <?php if (Session::get('roleid') == '1') { ?>
             <li class="nav-item mb-2">
@@ -55,6 +56,12 @@ $users = new Users();
             </li>
             <li class="nav-item mb-2">
               <a class="nav-link text-white" href="<?php echo $domain;?>/tutorials/add.php"><i class="fas fa-folder-plus mr-2"></i>Add Tutorial</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link text-white" href="<?php echo $domain;?>/interactive_quiz.php"><i class="fas fa-folder mr-2"></i>List Quiz</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link text-white" href="<?php echo $domain;?>/addquiz.php"><i class="fas fa-folder-plus mr-2"></i>Add Quiz</a>
             </li>
           <?php } ?>
           <li class="nav-item mb-2">
