@@ -1,200 +1,354 @@
 <?php
-error_reporting(32767);
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include './inc/header.php';
+// Include the Tutorials class
+include_once __DIR__ . "/classes/Tutorials.php";
 
-Session::CheckSession();
+// Instantiate the Tutorials class
+$tutorials = new Tutorials();
 
-$logMsg = Session::get('logMsg');
-if (isset($logMsg)) {
-  echo $logMsg;
-}
-$msg = Session::get('msg');
-if (isset($msg)) {
-  echo $msg;
-}
-Session::set("msg", NULL);
-Session::set("logMsg", NULL);
+// Fetch all tutorials
+$allTutorials = $tutorials->_selectAllTutorialsData();
+$latestPosts = $tutorials->getLatestPosts(4)
 ?>
-<?php
+<!doctype html>
+<html lang="en">
 
-if (isset($_GET['remove'])) {
-  $remove = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['remove']);
-  $removeUser = $users->deleteUserById($remove);
-}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-if (isset($removeUser)) {
-  echo $removeUser;
-}
-if (isset($_GET['deactive'])) {
-  $deactive = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['deactive']);
-  $deactiveId = $users->userDeactiveByAdmin($deactive);
-}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./fontawesome/css/all.min.css">
 
-if (isset($deactiveId)) {
-  echo $deactiveId;
-}
-if (isset($_GET['active'])) {
-  $active = preg_replace('/[^a-zA-Z0-9-]/', '', (int)$_GET['active']);
-  $activeId = $users->userActiveByAdmin($active);
-}
+    <title>Home - Darisset</title>
+</head>
 
-if (isset($activeId)) {
-  echo $activeId;
-}
+<body>
 
+    <!-- navbar -->
+    <nav class="nav" id="nav">
+        <div class="nav-center">
+            <!-- nav header -->
+            <div class="nav-header">
+                <h5 style="color:blue;">Password Management System</h5>
+                <button class="nav-btn" id="nav-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- nav links -->
+            <ul class="nav-links">
+                <li><a href="index.php">home</a></li>
+                <li><a href="blog.php">Blog</a></li>
+                <div class="dropdown">
+                    <a class=" dropdown-toggle" href="#" role="button" id="UserDropdown" data-toggle="dropdown"
+                        aria-expanded="false">
+                        User
+                    </a>
 
-?>
-<div class="card ">
-  <div class="card-header">
-    <h3><i class="fas fa-users mr-2"></i>User list <span class="float-right">Welcome! <strong>
-          <span class="badge badge-lg badge-secondary text-white">
-            <?php
-            $username = Session::get('username');
-            if (isset($username)) {
-              echo $username;
-            }
-            ?></span>
+                    <ul class="dropdown-menu" aria-labelledby="UserDropdown">
+                        <li><a class="dropdown-item" href="user.html">User</a></li>
+                        <li><a class="dropdown-item" href="login.php">login</a></li>
+                        <li><a class="dropdown-item" href="register.php">regster</a></li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </nav>
 
-        </strong></span></h3>
-  </div>
-  <div class="card-body pr-2 pl-2">
+    <!-- sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <button id="close-btn" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul class="sidebar-links">
+                <li><a href="index.php">home</a></li>
+                <li><a href="blog.php">Blog</a></li>
+                <div class="dropdown">
+                    <a class=" dropdown-toggle" href="#" role="button" id="UserDropdown" data-toggle="dropdown"
+                        aria-expanded="false">
+                        User
+                    </a>
 
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th class="text-center">SL</th>
-          <th class="text-center">Name</th>
-          <th class="text-center">Username</th>
-          <th class="text-center">Email address</th>
-          <th class="text-center">Mobile</th>
-          <th class="text-center">Status</th>
-          <th class="text-center">Created</th>
-          <th width='25%' class="text-center">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
+                    <ul class="dropdown-menu" aria-labelledby="UserDropdown">
+                        <li><a class="dropdown-item" href="user.html">User</a></li>
+                        <li><a class="dropdown-item" href="login.php">login</a></li>
+                        <li><a class="dropdown-item" href="register.php">regster</a></li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </aside>
+    <!-- end of sidebar -->
 
-        $allUser = $users->selectAllUserData();
+    <!-- Banner -->
+    <div class="banner">
+        <div class="container">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <section>
+                            <div class="section-center clearfix">
+                                <!-- banner-img -->
+                                <article class="banner-img">
+                                    <div class="banner-picture-container">
+                                        <img src="./img/slide1.jpg" alt="tea kettle" class="banner-picture" />
+                                    </div>
+                                </article>
+                                <!-- banner-info -->
+                                <article class="banner-info">
+                                    <!-- section title -->
+                                    <div class="">
+                                        <h3>Banner our ?</h3>
+                                        <h2>My Journal</h2>
+                                    </div>
+                                    <!-- end of section title -->
+                                    <p class="banner-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        repellendus reprehenderit iure, vero nobis dolore!
+                                    </p>
+                                    <p class="banner-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        repellendus reprehenderit iure, vero nobis dolore!
+                                    </p>
+                                    <a href="detail.html" class="btn">learn more</a>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="carousel-item">
+                        <section>
+                            <div class="section-center clearfix">
+                                <!-- banner-img -->
+                                <article class="banner-img">
+                                    <div class="banner-picture-container">
+                                        <img src="./img/slide2.jpg" alt="tea kettle" class="banner-picture" />
+                                    </div>
+                                </article>
+                                <!-- banner-info -->
+                                <article class="banner-info">
+                                    <!-- section title -->
+                                    <div class="">
+                                        <h3>Haw learn python?</h3>
+                                        <h2>Pyhton Beginners</h2>
+                                    </div>
+                                    <!-- end of section title -->
+                                    <p class="banner-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        repellendus reprehenderit iure, vero nobis dolore!
+                                    </p>
+                                    <p class="banner-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        repellendus reprehenderit iure, vero nobis dolore!
+                                    </p>
+                                    <a href="detail.html" class="btn">learn more</a>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="carousel-item">
+                        <section>
+                            <div class="section-center clearfix">
+                                <!-- banner-img -->
+                                <article class="banner-img">
+                                    <div class="banner-picture-container">
+                                        <img src="./img/slide3.jpg" alt="tea kettle" class="banner-picture" />
+                                    </div>
+                                </article>
+                                <!-- banner-info -->
+                                <article class="banner-info">
+                                    <!-- section title -->
+                                    <div class="">
+                                        <h3>What happened..?</h3>
+                                        <h2>Django </h2>
+                                    </div>
+                                    <!-- end of section title -->
+                                    <p class="banner-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        repellendus reprehenderit iure, vero nobis dolore!
+                                    </p>
+                                    <p class="banner-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+                                        repellendus reprehenderit iure, vero nobis dolore!
+                                    </p>
+                                    <a href="detail.html" class="btn">learn more</a>
+                                </article>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- end banner -->
 
-        if ($allUser) {
-          $i = 0;
-          foreach ($allUser as  $value) {
-            $i++;
+    <!-- popular post -->
+    <div class="popular-post">
+        <div class="container">
+            <!-- popular post -->
+            <section class="section projects">
+                <!-- section title -->
+                <div class="section-title">
+                    <h2>Latest Tutorials Posts</h2>
+                    <div class="underline"></div>
+                </div>
+                <!-- end of section title -->
+                <div class="section-center projects-center">
+                    <?php
+                    if ($latestPosts) {
+                        foreach ($latestPosts as $index => $post) {
+                    ?>
+                            <!-- single post -->
+                            <a href="detail.php?id=<?php echo $post->id; ?>" class="project-<?php echo $index + 1; ?>">
+                                <article class="project">
+                                    <img src="<?php echo htmlspecialchars($post->link ?? './img/default.jpg'); ?>" alt="" class="project-img" />
+                                    <div class="project-info">
+                                        <h4><?php echo htmlspecialchars($post->title ?? 'Untitled Post'); ?></h4>
+                                        <p><?php echo htmlspecialchars($post->category ?? 'General'); ?></p>
+                                    </div>
+                                </article>
+                            </a>
+                            <!-- end of single post -->
+                    <?php
+                        }
+                    } else {
+                        echo '<p>No posts available.</p>';
+                    }
+                    ?>
+                </div>
+            </section>
+            <!-- endo of projects -->
+        </div>
+    </div>
+    <!-- popular post -->
+    <div class="blog">
+        <div class="container">
+            <div class="row">
+                <div class="section-title mt-5">
+                    <h2>All Tutorials Post</h2>
+                    <div class="underline"></div>
+                </div>
+                <div class="mb-5">
+                    <!-- featured blogs -->
+                    <section class="section" id="featured">
+                        <div class="section-center featured-center">
+                            <div class="row justify-content-start">
+                                <?php
+                                if ($allTutorials) {
+                                    foreach ($allTutorials as $value) {
+                                ?>
+                                        <div class="col-lg-6">
+                                            <!-- single blog -->
+                                            <article class="blog-card">
+                                                <div class="blog-img-container">
+                                                    <a href="detail.php?id=<?php echo $value->id; ?>">
+                                                        <img src="<?php echo htmlspecialchars($value->link ?? 'default-image.jpg'); ?>" class="blog-img" alt="Blog Image">
+                                                    </a>
+                                                    <p class="blog-date"><?php echo $tutorials->formatDate($value->created_at); ?></p>
+                                                </div>
+                                                <div class="blog-info">
+                                                    <div class="blog-title">
+                                                        <a href="detail.php?id=<?php echo $value->id; ?>">
+                                                            <h4><?php echo htmlspecialchars($value->title ?? 'Untitled Post'); ?></h4>
+                                                        </a>
+                                                    </div>
+                                                    <p>
+                                                        <?php echo htmlspecialchars(substr($value->detail ?? 'No details available.', 0, 150)); ?>...
+                                                    </p>
+                                                    <div class="blog-footer">
+                                                        <p>
+                                                            <span><i class="fas fa-user"></i></span>
+                                                            <?php echo htmlspecialchars($value->author_name ?? 'Unknown Author'); ?>
+                                                        </p>
+                                                        <a href="detail.php?id=<?php echo $value->id; ?>">
+                                                            <p>Read More...</p>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo '<p>No blog posts available at the moment.</p>';
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="blog-btn mt-5">
+                            <a href="blog.php" class="btn">All Posts</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end blog -->
+    <footer class="footer">
+        <ul class="social-icons mt-5">
+            <!-- single item -->
+            <li class="pr-3">
+                <a href="https://www.twitter.com" class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </li>
+            <!-- end of single item -->
+            <!-- single item -->
+            <li>
+                <a href="https://www.twitter.com" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </li>
+            <!-- end of single item -->
+            <!-- single item -->
+            <li>
+                <a href="https://www.twitter.com" class="social-icon">
+                    <i class="fab fa-squarespace"></i>
+                </a>
+            </li>
+            <!-- end of single item -->
+            <!-- single item -->
+            <li>
+                <a href="https://www.twitter.com" class="social-icon">
+                    <i class="fab fa-behance"></i>
+                </a>
+            </li>
+            <!-- end of single item -->
+            <!-- single item -->
+            <li>
+                <a href="https://www.twitter.com" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </li>
+            <!-- end of single item -->
+        </ul>
 
-        ?>
+        <p>&copy; <span id="date"></span> FYP. All rights reserved.</p>
+    </footer>
 
-            <tr class="text-center"
-              <?php if (Session::get("id") == $value->id) {
-                echo "style='background:#d9edf7' ";
-              } ?>>
+    <!-- Optional JavaScript -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="./js/popper.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/script.js"></script>
+</body>
 
-              <td><?php echo $i; ?></td>
-              <td><?php echo $value->name; ?></td>
-              <td><?php echo $value->username; ?> <br>
-                <?php if ($value->roleid  == '1') {
-                  echo "<span class='badge badge-lg badge-info text-white'>Admin</span>";
-                } elseif ($value->roleid == '2') {
-                  echo "<span class='badge badge-lg badge-dark text-white'>Editor</span>";
-                } elseif ($value->roleid == '3') {
-                  echo "<span class='badge badge-lg badge-dark text-white'>User Only</span>";
-                } ?></td>
-              <td><?php echo $value->email; ?></td>
-
-              <td><span class="badge badge-lg badge-secondary text-white"><?php echo $value->mobile; ?></span></td>
-              <td>
-                <?php if ($value->isActive == '0') { ?>
-                  <span class="badge badge-lg badge-info text-white">Active</span>
-                <?php } else { ?>
-                  <span class="badge badge-lg badge-danger text-white">Deactive</span>
-                <?php } ?>
-
-              </td>
-              <td><span class="badge badge-lg badge-secondary text-white"><?php echo $users->formatDate($value->created_at);  ?></span></td>
-
-              <td>
-                <?php if (Session::get("roleid") == '1') { ?>
-                  <a class="btn btn-success btn-sm
-                            " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
-                  <a onclick="return confirm('Are you sure To Delete ?')" class="btn btn-danger
-                    <?php if (Session::get("id") == $value->id) {
-                      echo "disabled";
-                    } ?>
-                             btn-sm " href="?remove=<?php echo $value->id; ?>">Remove</a>
-
-                  <?php if ($value->isActive == '0') {  ?>
-                    <a onclick="return confirm('Are you sure To Deactive ?')" class="btn btn-warning
-                       <?php if (Session::get("id") == $value->id) {
-                          echo "disabled";
-                        } ?>
-                                btn-sm " href="?deactive=<?php echo $value->id; ?>">Disable</a>
-                  <?php } elseif ($value->isActive == '1') { ?>
-                    <a onclick="return confirm('Are you sure To Active ?')" class="btn btn-secondary
-                       <?php if (Session::get("id") == $value->id) {
-                          echo "disabled";
-                        } ?>
-                                btn-sm " href="?active=<?php echo $value->id; ?>">Active</a>
-                  <?php } ?>
-
-
-
-
-                <?php  } elseif (Session::get("id") == $value->id  && Session::get("roleid") == '2') { ?>
-                  <a class="btn btn-success btn-sm " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
-                <?php  } elseif (Session::get("roleid") == '2') { ?>
-                  <a class="btn btn-success btn-sm
-                          <?php if ($value->roleid == '1') {
-                            echo "disabled";
-                          } ?>
-                          " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm
-                          <?php if ($value->roleid == '1') {
-                            echo "disabled";
-                          } ?>
-                          " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
-                <?php } elseif (Session::get("id") == $value->id  && Session::get("roleid") == '3') { ?>
-                  <a class="btn btn-success btn-sm " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-                  <a class="btn btn-info btn-sm " href="profile.php?id=<?php echo $value->id; ?>">Edit</a>
-                <?php } else { ?>
-                  <a class="btn btn-success btn-sm
-                          <?php if ($value->roleid == '1') {
-                            echo "disabled";
-                          } ?>
-                          " href="profile.php?id=<?php echo $value->id; ?>">View</a>
-
-                <?php } ?>
-
-              </td>
-            </tr>
-          <?php }
-        } else { ?>
-          <tr class="text-center">
-            <td>No user availabe now !</td>
-          </tr>
-        <?php } ?>
-
-      </tbody>
-
-    </table>
-
-
-
-
-
-
-
-
-
-  </div>
-</div>
-
-
-
-<?php
-include 'inc/footer.php';
-
-?>
+</html>
