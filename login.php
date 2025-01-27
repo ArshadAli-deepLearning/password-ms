@@ -102,7 +102,7 @@ if (isset($logout)) {
             </article>
         </div>
     </div>
-    <br><br><br>
+    <br><br><br>    <br><br><br>
     <!-- Footer -->
     <footer class="footer">
         <ul class="social-icons mt-5">

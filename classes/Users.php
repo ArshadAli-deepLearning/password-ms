@@ -157,7 +157,7 @@ class Users
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 <strong>Error !</strong> Your Password Must Contain At Least 1 Number !</div>';
       return $msg;
-    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL === FALSE)) {
+    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
       $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 <strong>Error !</strong> Invalid email address !</div>';
@@ -318,7 +318,7 @@ class Users
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Error !</strong> Enter only Number Characters for Mobile number field !</div>';
       return $msg;
-    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL === FALSE)) {
+    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
       $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Error !</strong> Invalid email address !</div>';
@@ -342,16 +342,17 @@ class Users
       $result =   $stmt->execute();
 
       if ($result) {
-        echo "<script>location.href='dashboard.php';</script>";
-        Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <strong>Success !</strong> Wow, Your Information updated Successfully !</div>');
-      } else {
-        echo "<script>location.href='dashboard.php';</script>";
-        Session::set('msg', '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Error !</strong> Data not inserted !</div>');
-      }
+        $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error !</strong> Wow, Your Information updated Successfully !</div>';
+         return $msg;
+    } else {
+        // Display error message
+        $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error !</strong> Something went wrong !</div>';
+         return $msg;
+    }
     }
   }
 
@@ -479,18 +480,17 @@ class Users
       $stmt->bindValue(':password', $new_pass);
       $stmt->bindValue(':id', $userid);
       $result =   $stmt->execute();
-
       if ($result) {
-        echo "<script>location.href='dashboard.php';</script>";
-        Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Success !</strong> Great news, Password Changed successfully !</div>');
-      } else {
         $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error !</strong> Great news, Password Changed successfully !</div>';
+         return $msg;
+    } else {
+      $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>Error !</strong> Password did not changed !</div>';
-        return $msg;
-      }
+      <strong>Error !</strong> Password did not change !</div>';
+       return $msg;
     }
+  }
   }
 }

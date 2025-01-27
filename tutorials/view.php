@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 $basepath = realpath(__DIR__ . '/..');
 
-include_once $basepath . "/inc/header.php";
+include_once $basepath . "/inc/header copy.php";
 
 spl_autoload_register(function ($classes) use ($basepath) {
     include $basepath . "/classes/" . $classes . ".php";
@@ -44,7 +44,7 @@ function getEmbedUrl($url) {
 }
 
 ?>
-
+<div class="flex-grow-1 p-3">
 <div class="card">
     <div class="card-header">
         <h3 class="text-center"><?php echo htmlspecialchars($tutorial->title); ?></h3>
@@ -65,7 +65,7 @@ function getEmbedUrl($url) {
                     <?php else: ?>
                         <!-- Open in a new tab if embedding is blocked -->
                         <a href="<?php echo htmlspecialchars($tutorial->link); ?>" target="_blank" class="btn btn-primary">
-                            Open Tutorial
+                            Open Tutorial Image
                         </a>
                     <?php endif; ?>
                 </div>
@@ -73,5 +73,5 @@ function getEmbedUrl($url) {
         </div>
     </div>
 </div>
-
+</div>
 <?php include $basepath . '/inc/footer.php'; ?>
