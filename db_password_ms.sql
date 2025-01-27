@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 27, 2025 at 03:44 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: Jan 27, 2025 at 06:22 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,6 +63,32 @@ CREATE TABLE `quiz_list` (
 INSERT INTO `quiz_list` (`exid`, `exname`, `nq`, `desp`, `subt`, `extime`, `datetime`, `subject`) VALUES
 (1, 'Password Security Knowledge', 3, 'First Session quiz', '2025-01-27 12:57:49', '2025-01-27 12:57:49', '2025-01-27 12:57:49', 'Security'),
 (4, 'Final Password Security Quiz Test', 1, 'This is the Final Exam', '2025-01-30 22:29:00', '2025-02-22 21:28:00', '0000-00-00 00:00:00', 'Security');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_passwords`
+--
+
+CREATE TABLE `tbl_passwords` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `strength` int(11) NOT NULL DEFAULT 100,
+  `password_for` varchar(100) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(100) NOT NULL,
+  `login_url` varchar(200) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `expires_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_passwords`
+--
+
+INSERT INTO `tbl_passwords` (`id`, `user_id`, `strength`, `password_for`, `username`, `password`, `login_url`, `created_at`, `expires_at`) VALUES
+(2, 28, 100, 'facebook', 'myusername', 'myverystrongpassword', 'https://www.facebook.com', '2025-01-27 20:40:06', '2025-01-28 20:39:31'),
+(4, 28, 40, 'Google', 'user001-gmail', 'thisismyweekpassword', 'https://www.google.com/', '2025-01-27 18:20:37', '2025-02-26 18:20:37');
 
 -- --------------------------------------------------------
 
@@ -145,7 +171,8 @@ INSERT INTO `tbl_users` (`id`, `name`, `username`, `email`, `password`, `mobile`
 (21, 'Millon ', 'Millon', 'millon@gmail.com', '05c19fb114728eabf85f47c858914ca42ddd2dae', '01717090233', 1, 1, '2020-03-13 05:11:02', '2020-03-13 05:11:02'),
 (22, 'Arshad Khan', 'Arshad', 'arshadali0343@gmail.com', '4635ac2d1ff7d32a5c0a820172c47b197c3905a3', '01164917944', 1, 0, '2025-01-26 12:48:27', '2025-01-26 12:48:27'),
 (23, 'Arshad Khan', 'Arshad786', 'arshad@gmail.com', '4635ac2d1ff7d32a5c0a820172c47b197c3905a3', '01164917944', 3, 0, '2025-01-27 05:10:08', '2025-01-27 05:10:08'),
-(24, 'Arshad Khan', 'ALi', 'ali0343@gmail.com', 'f58cf5e7e10f195e21b553096d092c763ed18b0e', '01164917944', 3, 0, '2025-01-27 05:17:41', '2025-01-27 05:17:41');
+(24, 'Arshad Khan', 'ALi', 'ali0343@gmail.com', 'f58cf5e7e10f195e21b553096d092c763ed18b0e', '01164917944', 3, 0, '2025-01-27 05:17:41', '2025-01-27 05:17:41'),
+(28, 'User', 'user001', 'user001@gmail.com', 'f58cf5e7e10f195e21b553096d092c763ed18b0e', '+123456789', 3, 0, '2025-01-27 14:57:02', '2025-01-27 14:57:02');
 
 --
 -- Indexes for dumped tables
@@ -162,6 +189,12 @@ ALTER TABLE `qstn_list`
 --
 ALTER TABLE `quiz_list`
   ADD PRIMARY KEY (`exid`);
+
+--
+-- Indexes for table `tbl_passwords`
+--
+ALTER TABLE `tbl_passwords`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_roles`
@@ -198,6 +231,12 @@ ALTER TABLE `quiz_list`
   MODIFY `exid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tbl_passwords`
+--
+ALTER TABLE `tbl_passwords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
@@ -213,7 +252,7 @@ ALTER TABLE `tbl_tutorials`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

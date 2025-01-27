@@ -164,7 +164,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             }
                             ?>
                         </div>
-                    </article>P
+                    </article>
                 </div>
 
             </div>

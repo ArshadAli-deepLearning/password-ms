@@ -15,4 +15,10 @@
   });
 </script>
 
+<!-- jQuery (Must be before Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Bootstrap JS (Include only if not already loaded) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+
 </html>
