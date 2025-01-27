@@ -81,7 +81,7 @@ class Users
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 <strong>Error !</strong> Your Password Must Contain At Least 1 Number !</div>';
       return $msg;
-    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL === FALSE)) {
+    } elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
       $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 <strong>Error !</strong> Invalid email address !</div>';
@@ -268,7 +268,7 @@ class Users
         Session::set('logMsg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Success !</strong> You are Logged In Successfully !</div>');
-        echo "<script>location.href='index.php';</script>";
+        echo "<script>location.href='dashboard.php';</script>";
       } else {
         $msg = '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -342,12 +342,12 @@ class Users
       $result =   $stmt->execute();
 
       if ($result) {
-        echo "<script>location.href='index.php';</script>";
+        echo "<script>location.href='dashboard.php';</script>";
         Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Success !</strong> Wow, Your Information updated Successfully !</div>');
       } else {
-        echo "<script>location.href='index.php';</script>";
+        echo "<script>location.href='dashboard.php';</script>";
         Session::set('msg', '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Error !</strong> Data not inserted !</div>');
@@ -388,12 +388,12 @@ class Users
     $stmt->bindValue(':id', $deactive);
     $result =   $stmt->execute();
     if ($result) {
-      echo "<script>location.href='index.php';</script>";
+      echo "<script>location.href='dashboard.php';</script>";
       Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Success !</strong> User account Diactivated Successfully !</div>');
     } else {
-      echo "<script>location.href='index.php';</script>";
+      echo "<script>location.href='dashboard.php';</script>";
       Session::set('msg', '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Error !</strong> Data not Diactivated !</div>');
@@ -414,12 +414,12 @@ class Users
     $stmt->bindValue(':id', $active);
     $result =   $stmt->execute();
     if ($result) {
-      echo "<script>location.href='index.php';</script>";
+      echo "<script>location.href='dashboard.php';</script>";
       Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Success !</strong> User account activated Successfully !</div>');
     } else {
-      echo "<script>location.href='index.php';</script>";
+      echo "<script>location.href='dashboard.php';</script>";
       Session::set('msg', '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Error !</strong> Data not activated !</div>');
@@ -481,7 +481,7 @@ class Users
       $result =   $stmt->execute();
 
       if ($result) {
-        echo "<script>location.href='index.php';</script>";
+        echo "<script>location.href='dashboard.php';</script>";
         Session::set('msg', '<div class="alert alert-success alert-dismissible mt-3" id="flash-msg">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Success !</strong> Great news, Password Changed successfully !</div>');

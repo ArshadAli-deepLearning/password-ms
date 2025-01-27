@@ -55,7 +55,7 @@ class Session
   public static function CheckLogin()
   {
     if (self::get("login") == TRUE) {
-      echo "<script>window.location='index.php';</script>";
+      echo "<script>window.location='dashboard.php';</script>";
     }
   }
 }

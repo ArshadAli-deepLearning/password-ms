@@ -1,7 +1,4 @@
 <div class="well card-footer">
-  <p>Webiste: https://mywebsite.com/
-    <span class="float-right">Like us: https://www.facebook.com/mywebisteuser/</span>
-  </p>
 </div>
 </body>
 <!-- Jquery script -->

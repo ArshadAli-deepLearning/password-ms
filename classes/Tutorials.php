@@ -70,6 +70,69 @@ class Tutorials
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
   }
+  public function _selectAllTutorialsData() {
+    $sql = "SELECT 
+                t.id, 
+                t.title, 
+                t.detail, 
+                t.link, 
+                t.created_at, 
+                u.name AS author_name
+            FROM 
+                tbl_tutorials t
+            LEFT JOIN 
+                tbl_users u 
+            ON 
+                t.created_by = u.id
+            ORDER BY 
+                t.created_at DESC";
+
+    $stmt = $this->db->pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+public function _getTutorialById($id) {
+  $sql = "SELECT 
+              t.id, 
+              t.title, 
+              t.detail, 
+              t.link, 
+              t.created_at, 
+              u.name AS author_name 
+          FROM 
+              tbl_tutorials t 
+          LEFT JOIN 
+              tbl_users u 
+          ON 
+              t.created_by = u.id 
+          WHERE 
+              t.id = :id 
+          LIMIT 1";
+
+  // Debugging: Output the query
+  // echo $sql;
+
+  $stmt = $this->db->pdo->prepare($sql);
+  $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+  $stmt->execute();
+  return $stmt->fetch(PDO::FETCH_OBJ);
+}
+public function getLatestPosts($limit = 4) {
+  $sql = "SELECT 
+              id, 
+              title, 
+              link
+          FROM 
+              tbl_tutorials 
+          ORDER BY 
+              created_at DESC 
+          LIMIT :limit";
+
+  $stmt = $this->db->pdo->prepare($sql);
+  $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
 
   // Get Single Tutorial By Id Method
   public function getTutorialById($id)
